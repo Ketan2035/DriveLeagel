@@ -47,5 +47,5 @@ const status = await connectMongo()
 console.log(status.message)
 
 app.listen(port, () => {
-  console.log(`DriveLegal API listening on http://localhost:${port}`)
+  console.log(`DriveLegal API listening on http://localhost:${port}....`)
 })

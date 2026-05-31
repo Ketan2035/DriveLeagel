@@ -44,7 +44,10 @@ export default function Home() {
               </a>
             </nav>
 
-            <button className="bg-blue-600 text-white px-5 py-2 rounded-lg">
+            <button
+              onClick={() => setIsOpen(true)}
+              className="bg-blue-600 text-white px-5 py-2 rounded-lg"
+            >
               Login
             </button>
           </div>
@@ -162,23 +165,78 @@ export default function Home() {
             </div>
           </div>
         </section>
-
-        {/* Footer */}
-        <footer className="bg-gray-900 text-white py-8">
-          <div className="max-w-7xl mx-auto px-6 text-center">
-            <h4 className="text-2xl font-bold">DriveLegal</h4>
-
-            <p className="text-gray-400 mt-2">
-              Smart Vehicle Compliance & Traffic Rule Management System
-            </p>
-
-            <p className="text-gray-500 mt-4 text-sm">
-              © 2026 DriveLegal. All Rights Reserved.
-            </p>
-          </div>
-        </footer>
       </div>
 
+      {/* About Section */}
+      <section className="bg-white py-20 px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-900">
+              About DriveLegal
+            </h2>
+
+            <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
+              DriveLegal is a smart vehicle compliance and traffic regulation
+              platform designed to help vehicle owners access important vehicle
+              information, understand traffic laws, and stay compliant with road
+              safety regulations.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="bg-gray-50 p-8 rounded-2xl shadow-sm">
+              <h3 className="text-xl font-semibold mb-3 text-blue-600">
+                Vehicle Verification
+              </h3>
+
+              <p className="text-gray-600">
+                Verify vehicle registration details, ownership information,
+                insurance status, FASTag linkage, and compliance records through
+                a centralized dashboard.
+              </p>
+            </div>
+
+            <div className="bg-gray-50 p-8 rounded-2xl shadow-sm">
+              <h3 className="text-xl font-semibold mb-3 text-green-600">
+                Traffic Rules Access
+              </h3>
+
+              <p className="text-gray-600">
+                Browse state-wise traffic regulations, penalties, and road
+                safety guidelines to better understand legal requirements and
+                avoid violations.
+              </p>
+            </div>
+
+            <div className="bg-gray-50 p-8 rounded-2xl shadow-sm">
+              <h3 className="text-xl font-semibold mb-3 text-orange-500">
+                Compliance Monitoring
+              </h3>
+
+              <p className="text-gray-600">
+                Monitor registration validity, insurance coverage, challans, and
+                other compliance indicators to maintain a roadworthy and legally
+                compliant vehicle.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-12 bg-blue-50 rounded-3xl p-8">
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">
+              Our Mission
+            </h3>
+
+            <p className="text-gray-700 leading-relaxed">
+              Our mission is to simplify vehicle compliance management by
+              providing a single platform for accessing traffic regulations,
+              vehicle information, and compliance status. By making this
+              information easily available, DriveLegal aims to promote
+              responsible driving behavior, improve awareness of road safety
+              regulations, and support safer transportation systems.
+            </p>
+          </div>
+        </div>
+      </section>
       {/* Modal Popup */}
       {isOpen && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">

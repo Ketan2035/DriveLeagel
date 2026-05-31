@@ -28,25 +28,20 @@ app.get("/",(req,res)=>{
 app.post("/trafficRules",async (req, res) => {
   try {
     const  state  = req.body;
-    console.log(state);
     const rules = await trafficRules.find(state);
-    console.log(rules);
     res.status(200).json(rules);
   } catch (error) {
     res.status(500).json({ message: "Server Error" });
-    console.log(error);
   }});
 
  app.post("/vehicle",async(req,res)=>{
   try{
     const vehicle=req.body;
-    console.log(vehicle)
     const result= await VehicleDetails.find(vehicle);
-    console.log(result);
     res.status(200).json(result);
   }
   catch(error){
-    console.log(error)
+    res.status(400).json({message:"error"});
   }
  });
 

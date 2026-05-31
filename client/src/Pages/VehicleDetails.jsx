@@ -32,19 +32,19 @@ export default function VehicleDetails() {
   };
 
   const getStatusColor = (status) => {
-    switch (status?.toUpperCase()) {
-      case "GREEN":
-        return "bg-green-500 border-3-8 border-green-500";
-      case "YELLOW":
-        return "bg-yellow-500 border-l-8 border-yellow-500";
-      case "ORANGE":
-        return "bg-orange-500 ";
-      case "RED":
-        return "bg-red-500 border-l-8 border-red-500";
-      default:
-        return "bg-white";
-    }
-  };
+  switch (status?.toUpperCase()) {
+    case "GREEN":
+      return "bg-green-500 border-3-8 border-green-500";
+    case "YELLOW":
+      return "bg-yellow-500 border-l-8 border-yellow-500";
+    case "ORANGE":
+      return "bg-orange-500 ";
+    case "RED":
+      return "bg-red-500 border-l-8 border-red-500";
+    default:
+      return "bg-white";
+  }
+};
 
   if (loading) {
     return <h1 className="p-10">Loading...</h1>;
@@ -72,29 +72,15 @@ export default function VehicleDetails() {
       <div className="max-w-7xl mx-auto p-6">
         {/* Vehicle Overview */}
         <div className="bg-white rounded-3xl shadow p-6">
-          <div className="flex flex-col md:flex-row justify-between items-start">
+          <div className="flex flex-col md:flex-row justify-between items-center">
             <div>
               <h2 className="text-3xl font-bold">
                 {vehicle.registrationNumber}
               </h2>
 
-              <p className="text-gray-600 mt-1">
-                Vehicle ID: {vehicle.vehicleId}
-              </p>
+              <p className="text-gray-500">Vehicle ID: {vehicle.vehicleId}</p>
 
-              <p className="text-gray-600">Owner: {vehicle.vehicle_owner}</p>
-
-              <p className="text-gray-600">
-                Vehicle: {vehicle.manufacturer} {vehicle.model}
-              </p>
-
-              <p className="text-gray-600">
-                Type: {vehicle.vehicleType} • Fuel: {vehicle.fuelType}
-              </p>
-
-              <p className="text-gray-600">
-                RTO: {vehicle.rtoName}, {vehicle.stateName}
-              </p>
+              <p className="text-gray-500">Owner: {vehicle.vehicle_owner}</p>
             </div>
 
             <div
@@ -103,55 +89,6 @@ export default function VehicleDetails() {
               )}`}
             >
               {vehicle.complianceStatus} COMPLIANCE
-            </div>
-          </div>
-
-          {/* Status Message */}
-          <div className="mt-6 border-t pt-4">
-            <h4 className="font-semibold text-lg">Compliance Summary</h4>
-
-            {vehicle.complianceStatus === "GREEN" && (
-              <p className="text-green-700 mt-2">
-                ✓ This vehicle is fully compliant. All major vehicle records
-                appear valid. Continue renewing documents before expiry and
-                follow traffic regulations.
-              </p>
-            )}
-
-            {vehicle.complianceStatus === "YELLOW" && (
-              <p className="text-yellow-700 mt-2">
-                ⚠ This vehicle requires attention. Some documents, challans, or
-                compliance requirements may need review. Check the sections
-                below and resolve pending issues.
-              </p>
-            )}
-
-            {vehicle.complianceStatus === "ORANGE" && (
-              <p className="text-orange-700 mt-2">
-                ⚠ Significant compliance issues detected. Review challans,
-                insurance, registration validity, and document status
-                immediately to avoid penalties.
-              </p>
-            )}
-
-            {vehicle.complianceStatus === "RED" && (
-              <p className="text-red-700 mt-2">
-                🚫 Critical compliance issues detected. Immediate action is
-                required. Vehicle operation may be restricted until pending
-                issues are resolved.
-              </p>
-            )}
-
-            <div className="mt-4">
-              <h5 className="font-medium mb-2">Recommended Actions</h5>
-
-              <ul className="list-disc ml-5 text-gray-700 space-y-1">
-                <li>Review document validity and expiry dates.</li>
-                <li>Check and pay any pending challans.</li>
-                <li>Ensure insurance and PUC are active.</li>
-                <li>Verify FASTag linkage status.</li>
-                <li>Renew registration before expiry.</li>
-              </ul>
             </div>
           </div>
         </div>

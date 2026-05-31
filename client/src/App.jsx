@@ -9,6 +9,7 @@ import TrafficRules from './Pages/TrafficRule'
 import Navbar from './Pages/Navbar'
 import VehicleSearchModal from './components/Popup'
 import VehicleDetails from './Pages/VehicleDetails'
+import Footer from './Pages/Footer'
 
 
 
@@ -24,6 +25,7 @@ function App() {
           <Route path="/vehicle-detail" element={<VehicleDetails/>} />
 
     </Routes>
+    <Footer/>
     </>
   )
 }

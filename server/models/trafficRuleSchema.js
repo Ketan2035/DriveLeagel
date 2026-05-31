@@ -46,12 +46,6 @@ const TrafficRuleSchema = new mongoose.Schema(
       required: true,
     },
 
-    vehicleTypes: [
-      {
-        type: String,
-      },
-    ],
-
     applicableRoadTypes: [
       {
         type: String,
@@ -64,91 +58,12 @@ const TrafficRuleSchema = new mongoose.Schema(
       required: true,
     },
 
-    ruleStatus: {
-      type: String,
-      enum: ["Active", "Inactive", "Draft"],
-      default: "Active",
-    },
-
-    effectiveFrom: {
-      type: Date,
-      required: true,
-    },
-
-    effectiveTill: {
-      type: Date,
-      default: null,
-    },
-
-    version: {
+    legalReference: [],
+    fine: {
       type: Number,
-      default: 1,
-    },
-
-    parentRuleId: {
-      type: String,
-      default: null,
-    },
-
-    legalReference: LegalReferenceSchema,
-
-    penalties: PenaltySchema,
-
-    enforcementAuthority: [
-      {
-        type: String,
-      },
-    ],
-
-    exemptionCategories: [
-      {
-        type: String,
-      },
-    ],
-
-    complianceRequirements: [
-      {
-        type: String,
-      },
-    ],
-
-    citizenActions: [
-      {
-        type: String,
-      },
-    ],
-
-    violationDetectionMethods: [
-      {
-        type: String,
-      },
-    ],
-
-    languages: {
-      english: LanguageSchema,
-      hindi: LanguageSchema,
-    },
-
-    sourceDocuments: [SourceDocumentSchema],
-
-    createdBy: {
-      type: String,
       required: true,
     },
-
-    approvedBy: {
-      type: String,
-    },
-
-    approvalStatus: {
-      type: String,
-      enum: ["Pending", "Approved", "Rejected"],
-      default: "Pending",
-    },
-
-    lastReviewedDate: Date,
-
-    nextReviewDate: Date,
+    
   },
   {
     timestamps: true,

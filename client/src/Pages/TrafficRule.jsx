@@ -1,56 +1,33 @@
-import React from "react";
-import {
-  Shield,
-  Phone,
-  FileText,
-  Bike,
-  Car,
-  Smartphone,
-  Wine,
-  ParkingCircle,
-  AlertTriangle,
-} from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
+import { Phone, FileText, AlertTriangle } from "lucide-react";
 
 export default function TrafficRulesPage() {
-  const trafficRules = [
-    {
-      icon: <Bike size={40} className="text-blue-700" />,
-      title: "Helmet Rules",
-      description:
-        "Wearing a BIS-certified helmet is mandatory for rider and pillion.",
-      fine: "₹1,000",
-      section: "MVA 129",
-    },
-    {
-      icon: <Car size={40} className="text-green-600" />,
-      title: "Seat Belt Rules",
-      description: "Seat belts are mandatory for drivers and all passengers.",
-      fine: "₹1,000",
-      section: "CMVR 138(3)",
-    },
-    {
-      icon: <Smartphone size={40} className="text-red-600" />,
-      title: "Mobile Usage",
-      description: "Using a mobile phone while driving is strictly prohibited.",
-      fine: "₹5,000",
-      section: "MVA 184",
-    },
-    {
-      icon: <Wine size={40} className="text-red-600" />,
-      title: "Drunk Driving",
-      description:
-        "Driving under the influence of alcohol is illegal and punishable.",
-      fine: "₹10,000",
-      section: "MVA 185",
-    },
-    {
-      icon: <ParkingCircle size={40} className="text-blue-700" />,
-      title: "Parking Rules",
-      description: "Park only in designated areas. Avoid no-parking zones.",
-      fine: "₹500",
-      section: "Local Rules",
-    },
-  ];
+  const [trafficRules, setTrafficRules] = useState([]);
+  const location = useLocation();
+  const stateName = location.state?.stateName || "Andhra Pradesh";
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchRules();
+  }, [stateName]);
+
+  const fetchRules = async () => {
+    try {
+      setLoading(true);
+      console.log(stateName);
+      const res = await axios.post("http://localhost:5000/trafficRules", {
+        stateName,
+      });
+
+      setTrafficRules(res.data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const safetyRules = [
     "Maintain safe distance from the vehicle ahead",
@@ -61,70 +38,130 @@ export default function TrafficRulesPage() {
     "Wear reflective gear while riding at night",
   ];
 
+  const getSeverityColor = (severity) => {
+    switch (severity) {
+      case "Critical":
+        return "bg-red-100 text-red-700";
+      case "High":
+        return "bg-orange-100 text-orange-700";
+      case "Medium":
+        return "bg-yellow-100 text-yellow-700";
+      default:
+        return "bg-green-100 text-green-700";
+    }
+  };
+
   return (
-    <div className="pt-20 bg-slate-100 p-6">
-      {/* Header */}{" "}
+    <div className="pt-20 bg-slate-100 min-h-screen p-6">
+      {/* Header */}
       <div className="bg-blue-900 text-white rounded-2xl p-6 shadow-lg">
-        {" "}
         <div className="grid md:grid-cols-5 gap-6 items-center">
-          {" "}
           <div className="md:col-span-2">
-            {" "}
-            <h1 className="text-3xl font-bold">Maharashtra Traffic Rules </h1>
-            ```
+            <h1 className="text-3xl font-bold">{stateName} Traffic Rules</h1>
+
             <p className="text-blue-100 mt-2">
-              Drive responsibly and follow the rules. Fines may vary according
-              to violations.
+              Drive responsibly and follow traffic regulations.
             </p>
           </div>
+
           <div>
-            <p className="text-blue-200 text-sm">Max Speed (Urban)</p>
-            <h2 className="text-4xl font-bold">50</h2>
-            <p>km/h</p>
+            <p className="text-blue-200 text-sm">Traffic Rules</p>
+            <h2 className="text-4xl font-bold">{trafficRules.length}</h2>
           </div>
+
           <div>
-            <p className="text-blue-200 text-sm">Max Speed (Highway)</p>
-            <h2 className="text-4xl font-bold">80</h2>
-            <p>km/h</p>
+            <p className="text-blue-200 text-sm">State</p>
+            <h2 className="text-xl font-semibold">{stateName}</h2>
           </div>
+
           <div>
-            <p className="text-blue-200 text-sm">Mandatory Safety</p>
-            <h2 className="text-xl font-semibold">Helmet & Seat Belt</h2>
+            <p className="text-blue-200 text-sm">Compliance</p>
+            <h2 className="text-xl font-semibold">Follow Rules</h2>
           </div>
         </div>
       </div>
-      {/* Main Grid */}
+
       <div className="grid lg:grid-cols-4 gap-6 mt-6">
-        {/* Left Content */}
+        {/* Main Content */}
         <div className="lg:col-span-3">
-          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-5">
-            {trafficRules.map((rule, index) => (
-              <div
-                key={index}
-                className="bg-white rounded-2xl p-5 shadow hover:shadow-lg transition"
-              >
-                <div>{rule.icon}</div>
+          {loading ? (
+            <div className="bg-white rounded-xl p-6 text-center">
+              Loading rules...
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-5">
+              {trafficRules.map((rule) => (
+                <div
+                  key={rule._id}
+                  className="bg-white rounded-2xl p-5 shadow hover:shadow-lg transition"
+                >
+                  <h3 className="text-lg font-bold">{rule.ruleTitle}</h3>
 
-                <h3 className="text-xl font-semibold mt-4">{rule.title}</h3>
-
-                <p className="text-gray-600 text-sm mt-2">{rule.description}</p>
-
-                <div className="mt-4">
-                  <p className="text-red-600 font-bold">Fine: {rule.fine}</p>
-
-                  <p className="text-gray-500 text-sm">
-                    Section: {rule.section}
+                  <p className="text-gray-600 text-sm mt-2">
+                    {rule.shortDescription}
                   </p>
+
+                  <div className="mt-3">
+                    <p className="font-medium text-gray-700">Category:</p>
+                    <p>{rule.category}</p>
+                  </div>
+
+                  <div className="mt-2">
+                    <p className="font-medium text-gray-700">Sub Category:</p>
+                    <p>{rule.subCategory}</p>
+                  </div>
+
+                  <div className="mt-2">
+                    <p className="font-medium text-gray-700">
+                      Legal Reference:
+                    </p>
+
+                    {rule.legalReference.map((ref, index) => (
+                      <p key={index} className="text-sm text-gray-600">
+                        {ref}
+                      </p>
+                    ))}
+                  </div>
+
+                  <div className="mt-4">
+                    <p className="text-red-600 font-bold">Fine: ₹{rule.fine}</p>
+                  </div>
+
+                  <div className="mt-3">
+                    <span
+                      className={`px-3 py-1 rounded-full text-sm font-medium ${getSeverityColor(
+                        rule.severityLevel,
+                      )}`}
+                    >
+                      {rule.severityLevel}
+                    </span>
+                  </div>
+
+                  <details className="mt-4">
+                    <summary className="cursor-pointer text-blue-700 font-medium">
+                      View Details
+                    </summary>
+
+                    <p className="mt-2 text-gray-600 text-sm">
+                      {rule.detailedDescription}
+                    </p>
+
+                    <div className="mt-2">
+                      <p className="font-medium">Applicable Roads:</p>
+
+                      <ul className="list-disc ml-5 text-sm">
+                        {rule.applicableRoadTypes.map((road, index) => (
+                          <li key={index}>{road}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </details>
                 </div>
+              ))}
+            </div>
+          )}
 
-                <button className="mt-4 text-blue-700 font-medium">
-                  View Details →
-                </button>
-              </div>
-            ))}
-          </div>
-
-          {/* Road Safety */}
+          {/* Safety Guidelines */}
           <div className="bg-white rounded-2xl p-6 shadow mt-6">
             <h2 className="text-2xl font-bold mb-5">Road Safety Guidelines</h2>
 
@@ -146,12 +183,12 @@ export default function TrafficRulesPage() {
           <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mt-6">
             <p className="text-blue-800">
               Rules and penalties may be updated by the Transport Department.
-              Please verify the latest notification before taking action.
+              Verify the latest notifications before taking action.
             </p>
           </div>
         </div>
 
-        {/* Right Sidebar */}
+        {/* Sidebar */}
         <div className="space-y-6">
           <div className="bg-white rounded-2xl p-5 shadow">
             <h2 className="font-bold text-xl mb-4">Quick Info</h2>
@@ -183,38 +220,20 @@ export default function TrafficRulesPage() {
             <h2 className="font-bold text-xl mb-4">Downloads</h2>
 
             <div className="space-y-3">
-              <button className="w-full flex items-center gap-2 text-left hover:text-blue-700">
+              <button className="w-full flex items-center gap-2 hover:text-blue-700">
                 <FileText size={18} />
                 Traffic Rules PDF
               </button>
 
-              <button className="w-full flex items-center gap-2 text-left hover:text-blue-700">
+              <button className="w-full flex items-center gap-2 hover:text-blue-700">
                 <FileText size={18} />
                 Fine Structure PDF
               </button>
 
-              <button className="w-full flex items-center gap-2 text-left hover:text-blue-700">
+              <button className="w-full flex items-center gap-2 hover:text-blue-700">
                 <FileText size={18} />
                 Road Signs Guide
               </button>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-2xl p-5 shadow">
-            <h2 className="font-bold text-xl mb-4">Compliance</h2>
-
-            <div className="space-y-3">
-              <div className="bg-green-100 text-green-700 p-3 rounded-lg">
-                Helmet Mandatory
-              </div>
-
-              <div className="bg-green-100 text-green-700 p-3 rounded-lg">
-                Seat Belt Mandatory
-              </div>
-
-              <div className="bg-yellow-100 text-yellow-700 p-3 rounded-lg">
-                Carry Valid Documents
-              </div>
             </div>
           </div>
         </div>

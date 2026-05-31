@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import {useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [vehicleNumber, setVehicleNumber] = useState("");
+  const [selectedState, setSelectedState] = useState("");
 
   const handleSearch = () => {
     if (!vehicleNumber.trim()) {
@@ -54,8 +55,12 @@ export default function Home() {
           <div className="max-w-7xl mx-auto text-center">
             {/* State Selector */}
             <div className="mb-8 flex flex-col md:flex-row justify-center items-center gap-4">
-              <select className="w-full md:w-80 px-4 py-3 border border-gray-300 rounded-xl">
-                <option>Select State</option>
+              <select
+                value={selectedState}
+                onChange={(e) => setSelectedState(e.target.value)}
+                className="w-full md:w-80 px-4 py-3 border border-gray-300 rounded-xl"
+              >
+                <option value="">Select State</option>
                 <option>Andhra Pradesh</option>
                 <option>Arunachal Pradesh</option>
                 <option>Assam</option>
@@ -87,7 +92,18 @@ export default function Home() {
               </select>
 
               <button
-                onClick={() => navigate(`/traffic-Rules`)}
+                onClick={() => {
+                  if (!selectedState) {
+                    alert("Please select a state");
+                    return;
+                  }
+
+                  navigate("/traffic-rules", {
+                    state: {
+                      stateName: selectedState,
+                    },
+                  });
+                }}
                 className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl"
               >
                 Get Traffic Rules
@@ -185,10 +201,10 @@ export default function Home() {
 
             <input
               type="text"
-              placeholder="MP04AB1234"
+              placeholder="VH0001"
               value={vehicleNumber}
               onChange={(e) => setVehicleNumber(e.target.value.toUpperCase())}
-              className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full border border-gray-300 rounded-xl px-4 py-3"
             />
 
             <div className="bg-blue-50 rounded-xl p-4 mt-5">
@@ -204,7 +220,18 @@ export default function Home() {
             </div>
 
             <button
-              onClick={()=>navigate(`/vehicle-detail`)}
+              onClick={() => {
+                if (!vehicleNumber.trim()) {
+                  alert("Please enter Vehicle ID");
+                  return;
+                }
+
+                navigate("/vehicle-detail", {
+                  state: {
+                    vehicleId: vehicleNumber,
+                  },
+                });
+              }}
               className="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-medium"
             >
               Check Vehicle Status

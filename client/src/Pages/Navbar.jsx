@@ -11,16 +11,17 @@ export default function Navbar() {
           <h1 className="text-2xl font-bold text-blue-700">DriveLegal</h1>
 
           <nav className="hidden md:flex items-center gap-8">
-            <a href="#" className="text-gray-700 hover:text-blue-600">
+            <a 
+            href="/" className="text-gray-700 hover:text-blue-600">
               Home
             </a>
-            <a href="#" className="text-gray-700 hover:text-blue-600">
+            <a href="/" className="text-gray-700 hover:text-blue-600">
               Traffic Rules
             </a>
-            <a href="#" className="text-gray-700 hover:text-blue-600">
+            <a href="/" className="text-gray-700 hover:text-blue-600">
               Vehicle Status
             </a>
-            <a href="#" className="text-gray-700 hover:text-blue-600">
+            <a href="/" className="text-gray-700 hover:text-blue-600">
               About
             </a>
           </nav>

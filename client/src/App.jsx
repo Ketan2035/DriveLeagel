@@ -10,6 +10,7 @@ import Navbar from './Pages/Navbar'
 import VehicleSearchModal from './components/Popup'
 import VehicleDetails from './Pages/VehicleDetails'
 import Footer from './Pages/Footer'
+import ChatBot from './components/chatBot'
 
 
 
@@ -18,7 +19,9 @@ function App() {
   return (
     <>
     <Navbar />
+    <ChatBot/>
     <Routes>
+          
           <Route path="/" element={<Home/>} />
           <Route path="/traffic-rules" element={<TrafficRules/>} />
           <Route path="/vehicle-status" element={<VehicleSearchModal/>} />

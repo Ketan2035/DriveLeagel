@@ -28,6 +28,24 @@ export default function TrafficRulesPage() {
       setLoading(false);
     }
   };
+  // const fetchPdf = async () => {
+  //   try {
+  //     await axios.get("http://localhost:5000/pdf");
+  //     const url = window.URL.createObjectURL(new Blob([response.data]));
+
+  //     const link = document.createElement("a");
+  //     link.href = url;
+  //     link.setAttribute("download", "traffic-rules.pdf");
+
+  //     document.body.appendChild(link);
+  //     link.click();
+
+  //     link.remove();
+  //     window.URL.revokeObjectURL(url);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   const safetyRules = [
     "Maintain safe distance from the vehicle ahead",
@@ -220,17 +238,32 @@ export default function TrafficRulesPage() {
             <h2 className="font-bold text-xl mb-4">Downloads</h2>
 
             <div className="space-y-3">
-              <button className="w-full flex items-center gap-2 hover:text-blue-700">
+              <button
+                onClick={() => {
+                  window.open("http://localhost:5000/pdf", "_blank");
+                }}
+                className="w-full flex items-center gap-2 hover:text-blue-700"
+              >
                 <FileText size={18} />
                 Traffic Rules PDF
               </button>
 
-              <button className="w-full flex items-center gap-2 hover:text-blue-700">
+              <button
+                onClick={() => {
+                  window.open("http://localhost:5000/pdf", "_blank");
+                }}
+                className="w-full flex items-center gap-2 hover:text-blue-700"
+              >
                 <FileText size={18} />
                 Fine Structure PDF
               </button>
 
-              <button className="w-full flex items-center gap-2 hover:text-blue-700">
+              <button
+                onClick={() => {
+                  window.open("http://localhost:5000/pdf", "_blank");
+                }}
+                className="w-full flex items-center gap-2 hover:text-blue-700"
+              >
                 <FileText size={18} />
                 Road Signs Guide
               </button>

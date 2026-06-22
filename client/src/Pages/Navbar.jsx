@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 export default function Navbar() {
   const navigate = useNavigate();
   return (
-    <div className=" bg-gray-50">
+    <div className=" bg-gray-50"> 
       {/* Header */}
       <header className="fixed top-0 left-0 w-full m-auto bg-white shadow-sm z-50">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
